@@ -20,3 +20,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen
 
 CMD ["uv", "run", "uvicorn", "src:posty_auth", "--reload", "--port=3001", "--host=0.0.0.0"]
+
