@@ -28,6 +28,7 @@ Base = declarative_base()
 async def init_db():
     try:
         async with engine.begin() as conn:
+            print("syncing database")
             await conn.run_sync(Base.metadata.create_all)
             return True
     except Exception:
