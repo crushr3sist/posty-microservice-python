@@ -3,7 +3,6 @@ import uuid
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import UUID
-
 from src.database import Base
 
 
@@ -21,8 +20,6 @@ class UserModel(Base):
 
 
 class UserSchema(BaseModel):
-    id: UUID
     email: EmailStr
     username: str
     hashed_password: str
-    exp: int | float

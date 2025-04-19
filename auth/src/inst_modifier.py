@@ -3,7 +3,6 @@ from asyncio.log import logger
 import psycopg2
 import sqlalchemy
 import sqlalchemy.exc
-
 import src
 from src.database import init_db
 

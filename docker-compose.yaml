@@ -22,31 +22,31 @@ services:
       - my-network
     restart: always
 
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    networks:
-      - my-network
-    restart: always
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - my-network
+  #   restart: always
 
-  rabbitmq:
-    image: "rabbitmq:3-management-alpine"
-    hostname: "rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
-      # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-      - my-network
-    restart: always
+  # rabbitmq:
+  #   image: "rabbitmq:3-management-alpine"
+  #   hostname: "rabbitmq"
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+  #     RABBITMQ_DEFAULT_USER: "rabbitmq"
+  #     RABBITMQ_DEFAULT_PASS: "rabbitmq"
+  #   ports:
+  #     - "15672:15672"
+  #     - "5672:5672"
+  #   volumes:
+  #     - rabbitmq-data:/var/lib/rabbitmq
+  #     # - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+  #     # - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  #   networks:
+  #     - my-network
+  #   restart: always
 
   nginx:
     image: nginx:latest
@@ -69,8 +69,8 @@ services:
       - "3001:3001"
     depends_on:
       - postgres
-      - redis
-      - rabbitmq
+      # - redis
+      # - rabbitmq
 
     networks:
       - my-network
@@ -83,8 +83,8 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
-      - redis
-      - rabbitmq
+      # - redis
+      # - rabbitmq
 
     networks:
       - my-network

@@ -7,6 +7,7 @@ class PostyAuth(FastAPI):
     def __init__(self, *, title="posty auth"):
         super().__init__(title=title)
         self.register_endpoints()
+        self.register_endpoints()
 
     def register_middleware(self):
         self.add_middleware(
@@ -25,5 +26,6 @@ class PostyAuth(FastAPI):
     def register_config(self): ...
 
 
-posty_auth = PostyAuth()
+posty_auth: PostyAuth = PostyAuth()
+
 from .inst_modifier import *

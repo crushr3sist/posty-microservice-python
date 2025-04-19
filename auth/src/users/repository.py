@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import AsyncGenerator, Optional
 
 import arrow
 from jose import jwt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from src.config import Config
+from src.database import SessionLocal
 from src.users.models import UserModel, UserSchema
 
 
@@ -38,11 +38,18 @@ def hash_password(password):
 async def get_user(db: AsyncSession, email):
     try:
         async with db.begin():
-            result = await db.execute(select(UserModel).filter(UserModel.email == email))
+            result = await db.execute(
+                select(UserModel).filter(UserModel.email == email)
+            )
             return result.scalars().first()
     except Exception as e:
         await db.rollback()
         return e
+
+
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with SessionLocal() as session:
+        yield session
 
 
 async def check_password(db, email, password) -> bool:
@@ -62,6 +69,7 @@ async def create_user(db: AsyncSession, user: UserSchema):
             )
             db.add(user_to_commit)
             await db.commit()
+            
     except Exception as e:
         await db.rollback()
         return e
